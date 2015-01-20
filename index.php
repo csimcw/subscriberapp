@@ -1,7 +1,37 @@
-<?php
-include_once("template_header.php");
-?>
-<    <div class="container">    
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="media/css/bootstrap.min.css" rel="stylesheet">
+	<link href="media/css/bootstrap-theme.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9] -->
+      <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <img src="media/images/Head.png" />
+ 	<nav class="navbar navbar-default" />
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<ul class="nav nav-pills">
+					<li role="presentation" class="active"><a href="index.php">Home</a></li>
+					<li role="presentation" class=""><a href="registeration.php">Registeration</a></li>
+					<li role="presentation"><a href="subscription.php">Subscription</a></li>
+					<li role="presentation"><a href="help.php">Help</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+    <div class="container">    
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
             <div class="panel panel-info" >
                     <div class="panel-heading">
@@ -40,7 +70,7 @@ include_once("template_header.php");
                                     <!-- Button -->
 
                                     <div class="col-sm-12 controls">
-                                      <input type="submit" id="btn-login" class="btn btn-success"value="Login" />
+                                      <input type="submit" name="submit" id="btn-login" class="btn btn-success"value="Login" />
                                       <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
 
                                     </div>
