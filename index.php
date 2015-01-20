@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>Memorial Church Whitefield | Login</title>
 
     <!-- Bootstrap -->
     <link href="media/css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,8 @@
 			<div class="navbar-header">
 				<ul class="nav nav-pills">
 					<li role="presentation" class="active"><a href="index.php">Home</a></li>
-					<li role="presentation" class=""><a href="registeration.php">Registeration</a></li>
+					<li role="presentation"><a href="registeration.php">Registeration</a></li>
+					<li role="presentation"><a href="members.php">Congregation members</a></li>
 					<li role="presentation"><a href="subscription.php">Subscription</a></li>
 					<li role="presentation"><a href="help.php">Help</a></li>
 				</ul>

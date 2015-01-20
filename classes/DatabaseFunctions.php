@@ -70,5 +70,34 @@ class DatabaseFunctions{
 		}		
 		return($stmt->affected_rows);
 	}
+	
+	function searchMember($fname,$lname,$phone){
+	
+		$query = "select * from members where firstname = ? and lastname = ? amd phone = ?";
+			$stmt = $this->mysqli->prepare($query);
+
+				// Bind the variables and execute the statement
+				
+				$rc = $stmt->bind_param("ssd", $fname, $lname, $phone);
+				
+				$this->fname = $fname;
+				$this->lname = $lname;
+				$this->phone = $phone;
+				
+				$rc=$stmt->execute();
+
+				// Bind the result and retrieve the data
+				
+				
+				while ($stmt->fetch()) {
+					echo $name;
+					echo $email;
+				}
+				exit;
+
+				// And close the statement
+				mysqli_stmt_close($stmt);
+				
+	}
 		
 }
