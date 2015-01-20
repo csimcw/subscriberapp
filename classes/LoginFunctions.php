@@ -18,6 +18,12 @@ class LoginFunctions{
 		$dbname = DBNAME;
 		
 		$this->conn = mysqli_connect($host,$user,$pswd);
+		
+		/* check connection */
+		/*if (mysqli_connect_errno()) {
+			printf("Connect failed: %s\n", mysqli_connect_error());
+			//exit();
+		}*/		
 		if (!$this->conn) {			
 			trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);			
 		}else{

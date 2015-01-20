@@ -1,14 +1,11 @@
 <?php
 session_start();
-
 # Valdiating member's active session or else redirect to login.
 if(!isset($_SESSION['fullname'])){
   header("Location:index.php");
 }else{
   $usern = $_SESSION['fullname'];
 }
-	
-	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +25,11 @@ if(!isset($_SESSION['fullname'])){
       <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<style>
+		h3{
+			color:green;
+		}
+	</style>
   </head>
   <body>
   <img src="media/images/Head.png" />
@@ -51,9 +53,16 @@ if(!isset($_SESSION['fullname'])){
 
 <div class="row">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-		<form role="form">
+		<form role="form" action="classes/registerationmodel.php" method="POST">
 			<h2>Subscriber <small>registration.</small></h2>
 			<hr class="colorgraph">
+			<?php
+			if(isset($_GET['msg']) && ($_GET['msg']=='s')){
+			?>
+				<h3>Member addition successfull!</h3>
+			<?php
+			}
+			?>
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
@@ -160,7 +169,7 @@ if(!isset($_SESSION['fullname'])){
 			
 			<hr class="colorgraph">
 			<div class="row">
-				<div class="col-xs-12 col-md-6"><input type="submit" value="Register" class="btn btn-primary btn-lg" tabindex="7">&nbsp;&nbsp;&nbsp;<input type="reset" value="Reset" class="btn btn-primary  btn-lg" tabindex="7"></div>
+				<div class="col-xs-12 col-md-6"><input type="submit" name="submitreg" value="Register" class="btn btn-primary btn-lg" tabindex="7">&nbsp;&nbsp;&nbsp;<input type="reset" value="Reset" class="btn btn-primary  btn-lg" tabindex="7"></div>
 				<!--<div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Sign In</a></div>-->
 			</div>
 		</form>
@@ -175,11 +184,11 @@ if(!isset($_SESSION['fullname'])){
             $(document).ready(function () {
                 
                 $('#dateofbirth').datepicker({
-                    format: "dd/mm/yyyy"
+                    format: "yyyy-mm-dd"
                 });  
 				
 				$('#marriageanniversary').datepicker({
-                    format: "dd/mm/yyyy"
+                    format: "yyyy-dd-mm"
                 });
             
             });
