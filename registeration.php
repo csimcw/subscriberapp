@@ -6,6 +6,40 @@ if(!isset($_SESSION['fullname'])){
 }else{
   $usern = $_SESSION['fullname'];
 }
+
+$file_formats = array("jpg", "png", "gif", "bmp");
+
+$filepath = "upload_images/";
+$preview_width = "400";
+$preview_height = "300";
+
+if(isset($_POST['submitbtn'])){
+if ($_POST['submitbtn']=="Upload") {
+ $name = $_FILES['imagefile']['name']; // filename to get file's extension
+ $size = $_FILES['imagefile']['size'];
+
+ if (strlen($name)) {
+ 	$extension = substr($name, strrpos($name, '.')+1);
+ 	if (in_array($extension, $file_formats)) { // check it if it's a valid format or not
+ 		if ($size < (2048 * 1024)) { // check it if it's bigger than 2 mb or no
+ 			$imagename = $name.md5(uniqid() . time()) . "." . $extension;
+ 			$tmp = $_FILES['imagefile']['tmp_name'];
+ 				if (move_uploaded_file($tmp, $filepath . $imagename)) {
+					echo $imagename;					
+ 				} else {
+ 					echo "Could not move the file";
+ 				}
+ 		} else {
+ 			echo "Your image size is bigger than 2MB";
+ 		}
+ 	} else {
+ 			echo "Invalid file format";
+ 	}
+ } else {
+ 	echo "Please select image!";
+ } 
+}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +60,24 @@ if(!isset($_SESSION['fullname'])){
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 	<style>
+		h2{
+			color:purple;
+		}
 		h3{
 			color:green;
+		}
+		select#baptism.form-control.input-lg{			
+			width:70px !important;
+		}
+		select#baptism.form-control.input-lg{
+			width:70px !important;
+		}
+		select#baptism.form-control.input-lg{
+			width:70px !important;
+		}
+		#myIframe{
+			width:600px;
+			height:600px;
 		}
 	</style>
   </head>
@@ -85,27 +135,27 @@ if(!isset($_SESSION['fullname'])){
 								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
 							</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-xs-1">
 							<div class="form-group">
-								<label class="control-label col-xs-12 label label-primary" for="baptism">Baptism</label>
+								<label class="control-label col-md-12 label label-primary" for="baptism">Baptism</label>
 								<select name="baptism" id="baptism" class="form-control input-lg">
+									<option value="">Select</option>
+									<option value="yes">Y</option>
+									<option value="no">N</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
+								<label class="control-label col-md-12 label label-primary" for="baptism">Confirmation</label>
+								<select name="baptism" id="baptism" class="form-control col-xs-2 input-lg">
 									<option value="">Select</option>
 									<option value="yes">Yes</option>
 									<option value="no">No</option>
 								</select>								
 							</div>
 						</div>
-						<div class="col-xs-2">
-							<div class="form-group">
-								<label class="control-label col-xs-12 label label-primary" for="baptism">Confirmation</label>
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
-							</div>
-						</div>
-						<div class="col-xs-2">
+						<div class="col-xs-1">
 							<div class="form-group">
 								<label class="control-label col-xs-12 label label-primary" for="baptism">Married</label>
 								<select name="baptism" id="baptism" class="form-control input-lg">
@@ -115,56 +165,17 @@ if(!isset($_SESSION['fullname'])){
 								</select>								
 							</div>
 						</div>
-						
-					</div>
-					<div class="row">
 						<div class="col-xs-2">
 							<div class="form-group">
-							    
-								<input type="text" name="name" id="name" class="form-control input-lg" placeholder="Name of the family member" tabindex="1">
-								
-							</div>
-						</div>
-						<div class="col-xs-2">
-							<div class="form-group">
-								
-								<input type="text" name="relationship" id="relationship" class="form-control input-lg" placeholder="Relationship" tabindex="2">
-							</div>
-						</div>
-						<div class="col-xs-2">
-							<div class="form-group">
-								
+								<label class="control-label col-xs-12 label label-primary" for="DOB">Marriage Date</label>
 								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
 							</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-xs-1">
 							<div class="form-group">
-								
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
-							</div>
-						</div>
-						<div class="col-xs-2">
-							<div class="form-group">
-								
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
-							</div>
-						</div>
-						<div class="col-xs-2">
-							<div class="form-group">
-								
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
+								<label class="control-label col-md-12 label label-primary" for="baptism">Photo</label>
+								<input name="imgupload"  type="button" class="imgupload form-control btn btn-success" value="Upload" />
+																
 							</div>
 						</div>
 						
@@ -189,9 +200,26 @@ if(!isset($_SESSION['fullname'])){
 								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
 							</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-xs-1">
 							<div class="form-group">
-								
+								<select name="baptism" id="baptism" class="form-control input-lg">
+									<option value="">Select</option>
+									<option value="yes">Y</option>
+									<option value="no">N</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
+								<select name="baptism" id="baptism" class="form-control col-xs-2 input-lg">
+									<option value="">Select</option>
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
 								<select name="baptism" id="baptism" class="form-control input-lg">
 									<option value="">Select</option>
 									<option value="yes">Yes</option>
@@ -200,23 +228,14 @@ if(!isset($_SESSION['fullname'])){
 							</div>
 						</div>
 						<div class="col-xs-2">
-							<div class="form-group">
-								
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
+							<div class="form-group">								
+								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
 							</div>
 						</div>
-						<div class="col-xs-2">
-							<div class="form-group">
-								
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
+						<div class="col-xs-1">
+							<div class="form-group">								
+								<input name="imgupload" type="button" class="imgupload form-control btn btn-success" value="Upload" />
+																
 							</div>
 						</div>
 						
@@ -241,9 +260,26 @@ if(!isset($_SESSION['fullname'])){
 								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
 							</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-xs-1">
 							<div class="form-group">
-								
+								<select name="baptism" id="baptism" class="form-control input-lg">
+									<option value="">Select</option>
+									<option value="yes">Y</option>
+									<option value="no">N</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
+								<select name="baptism" id="baptism" class="form-control col-xs-2 input-lg">
+									<option value="">Select</option>
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
 								<select name="baptism" id="baptism" class="form-control input-lg">
 									<option value="">Select</option>
 									<option value="yes">Yes</option>
@@ -252,23 +288,14 @@ if(!isset($_SESSION['fullname'])){
 							</div>
 						</div>
 						<div class="col-xs-2">
-							<div class="form-group">
-								
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
+							<div class="form-group">								
+								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
 							</div>
 						</div>
-						<div class="col-xs-2">
-							<div class="form-group">
-								
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
+						<div class="col-xs-1">
+							<div class="form-group">								
+								<input name="imgupload" type="button" class="imgupload form-control btn btn-success" value="Upload" />
+																
 							</div>
 						</div>
 						
@@ -293,9 +320,26 @@ if(!isset($_SESSION['fullname'])){
 								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
 							</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-xs-1">
 							<div class="form-group">
-								
+								<select name="baptism" id="baptism" class="form-control input-lg">
+									<option value="">Select</option>
+									<option value="yes">Y</option>
+									<option value="no">N</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
+								<select name="baptism" id="baptism" class="form-control col-xs-2 input-lg">
+									<option value="">Select</option>
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
 								<select name="baptism" id="baptism" class="form-control input-lg">
 									<option value="">Select</option>
 									<option value="yes">Yes</option>
@@ -304,23 +348,14 @@ if(!isset($_SESSION['fullname'])){
 							</div>
 						</div>
 						<div class="col-xs-2">
-							<div class="form-group">
-								
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
+							<div class="form-group">								
+								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
 							</div>
 						</div>
-						<div class="col-xs-2">
-							<div class="form-group">
-								
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
+						<div class="col-xs-1">
+							<div class="form-group">								
+								<input name="imgupload" type="button" class="imgupload form-control btn btn-success" value="Upload" />
+																
 							</div>
 						</div>
 						
@@ -345,9 +380,26 @@ if(!isset($_SESSION['fullname'])){
 								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
 							</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-xs-1">
 							<div class="form-group">
-								
+								<select name="baptism" id="baptism" class="form-control input-lg">
+									<option value="">Select</option>
+									<option value="yes">Y</option>
+									<option value="no">N</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
+								<select name="baptism" id="baptism" class="form-control col-xs-2 input-lg">
+									<option value="">Select</option>
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
 								<select name="baptism" id="baptism" class="form-control input-lg">
 									<option value="">Select</option>
 									<option value="yes">Yes</option>
@@ -356,8 +408,58 @@ if(!isset($_SESSION['fullname'])){
 							</div>
 						</div>
 						<div class="col-xs-2">
+							<div class="form-group">								
+								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">								
+								<input name="imgupload" type="button" class="imgupload form-control btn btn-success" value="Upload" />
+																
+							</div>
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="col-xs-2">
+							<div class="form-group">
+							    
+								<input type="text" name="name" id="name" class="form-control input-lg" placeholder="Name of the family member" tabindex="1">
+								
+							</div>
+						</div>
+						<div class="col-xs-2">
 							<div class="form-group">
 								
+								<input type="text" name="relationship" id="relationship" class="form-control input-lg" placeholder="Relationship" tabindex="2">
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<div class="form-group">
+								
+								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
+								<select name="baptism" id="baptism" class="form-control input-lg">
+									<option value="">Select</option>
+									<option value="yes">Y</option>
+									<option value="no">N</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
+								<select name="baptism" id="baptism" class="form-control col-xs-2 input-lg">
+									<option value="">Select</option>
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>								
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">
 								<select name="baptism" id="baptism" class="form-control input-lg">
 									<option value="">Select</option>
 									<option value="yes">Yes</option>
@@ -366,13 +468,14 @@ if(!isset($_SESSION['fullname'])){
 							</div>
 						</div>
 						<div class="col-xs-2">
-							<div class="form-group">
-								
-								<select name="baptism" id="baptism" class="form-control input-lg">
-									<option value="">Select</option>
-									<option value="yes">Yes</option>
-									<option value="no">No</option>
-								</select>								
+							<div class="form-group">								
+								<input type="text" name="dateofbirth" id="dateofbirth" class="form-control input-lg" placeholder="Date of Birth" tabindex="5">
+							</div>
+						</div>
+						<div class="col-xs-1">
+							<div class="form-group">								
+								<input name="imgupload" type="button" class="imgupload form-control btn btn-success" value="Upload" />
+																
 							</div>
 						</div>
 						
@@ -541,7 +644,7 @@ if(!isset($_SESSION['fullname'])){
 				<div class="col-xs-3">
 					<div class="form-group">
 						<label class="control-label col-xs-12 label label-primary" for="baptism">Transfer Certificate attached</label>
-						<select name="baptism" id="baptism" class="form-control input-lg">
+						<select name="transf" id="transf" class="form-control input-lg">
 							<option value="">Select</option>
 							<option value="yes">Yes</option>
 							<option value="no">No</option>
@@ -610,11 +713,19 @@ if(!isset($_SESSION['fullname'])){
 				<div class="col-xs-12 col-md-12"><input type="submit" name="submitreg" value="Register" class="btn btn-primary btn-lg" tabindex="7">&nbsp;&nbsp;&nbsp;<input type="reset" value="Reset" class="btn btn-primary  btn-lg" tabindex="7"></div>
 				<!--<div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Sign In</a></div>-->
 			</div>
+			<div id="dialog">
+				<iframe id="myIframe" src=""></iframe>
+			</div>
 		</form>
+		
 	
 </div>
-<br/><br/><br/>
+<br/><br/><br/>		
+	<div class="footer footer-div">&copy;All rights reserved 2015, CSI Memorial Church, Whitefield, Bangalore</div>
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+		
 		<script src="media/js/jquery-1.11.2.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
         <script src="media/js/bootstrap-datepicker.js"></script>
         <script type="text/javascript">
             // When the document is ready
@@ -626,11 +737,34 @@ if(!isset($_SESSION['fullname'])){
 				
 				$('#marriageanniversary').datepicker({
                     format: "yyyy-dd-mm"
-                });
+                })
+				
+				
+				$('#dialog').dialog({
+					autoOpen: false,
+					modal: true,
+					resizable: true,
+					width: "auto",
+					height: "auto",
+					open: function(ev, ui){
+							 $('#myIframe').attr('src','cropimage/index.php');
+						  }
+				});
+				
+				$(".imgupload").click(function(){					
+					 $('#dialog').dialog('open');
+				});
             
-            });vinodhvivek
+            });
+			function closeIframe()
+			{
+				$('#dialog').dialog('close');
+				return false;
+			}
 
         </script>
-<?php
-include_once("template_footer.php");
-?>
+	
+	
+	
+  </body>
+</html>
