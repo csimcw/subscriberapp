@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 error_reporting (E_ALL ^ E_NOTICE);
 
 $upload_path = "upload_images/";				
@@ -68,7 +68,12 @@ if (isset($_POST["upload_thumbnail"])) {
 	$scale = $thumb_width/$w;
 	$cropped = resizeThumbnailImage($thumb_image_location, $large_image_location,$w,$h,$x1,$y1,$scale);
 	//header("location:".$_SERVER["PHP_SELF"]);
-	echo "<script>window.parant.close();</script>";
+	$_SESSION['imgname'] = $filename;
+	echo "<script>
+		window.parent.closeIframe();
+		window.paent.alert('Image Uploaded successfully, \n File : ".$filename." ');
+		window.parent.document.getElementById('up1').style.display='none';
+	</script>";	
 	exit();
 }
 
@@ -152,8 +157,7 @@ $(document).ready(function () {
 		if(x1=="" || y1=="" || x2=="" || y2=="" || w=="" || h==""){
 			alert("Please Make a Selection First");
 			return false;
-		}else{
-			window.parent.close();
+		}else{			
 			return true;
 		}
 	});

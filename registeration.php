@@ -6,40 +6,7 @@ if(!isset($_SESSION['fullname'])){
 }else{
   $usern = $_SESSION['fullname'];
 }
-
-$file_formats = array("jpg", "png", "gif", "bmp");
-
-$filepath = "upload_images/";
-$preview_width = "400";
-$preview_height = "300";
-
-if(isset($_POST['submitbtn'])){
-if ($_POST['submitbtn']=="Upload") {
- $name = $_FILES['imagefile']['name']; // filename to get file's extension
- $size = $_FILES['imagefile']['size'];
-
- if (strlen($name)) {
- 	$extension = substr($name, strrpos($name, '.')+1);
- 	if (in_array($extension, $file_formats)) { // check it if it's a valid format or not
- 		if ($size < (2048 * 1024)) { // check it if it's bigger than 2 mb or no
- 			$imagename = $name.md5(uniqid() . time()) . "." . $extension;
- 			$tmp = $_FILES['imagefile']['tmp_name'];
- 				if (move_uploaded_file($tmp, $filepath . $imagename)) {
-					echo $imagename;					
- 				} else {
- 					echo "Could not move the file";
- 				}
- 		} else {
- 			echo "Your image size is bigger than 2MB";
- 		}
- 	} else {
- 			echo "Invalid file format";
- 	}
- } else {
- 	echo "Please select image!";
- } 
-}
-}
+print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -174,7 +141,7 @@ if ($_POST['submitbtn']=="Upload") {
 						<div class="col-xs-1">
 							<div class="form-group">
 								<label class="control-label col-md-12 label label-primary" for="baptism">Photo</label>
-								<input name="imgupload"  type="button" class="imgupload form-control btn btn-success" value="Upload" />
+								<input name="imgupload" id="up1" type="button" class="imgupload form-control btn btn-success" value="Upload" />
 																
 							</div>
 						</div>
@@ -234,8 +201,7 @@ if ($_POST['submitbtn']=="Upload") {
 						</div>
 						<div class="col-xs-1">
 							<div class="form-group">								
-								<input name="imgupload" type="button" class="imgupload form-control btn btn-success" value="Upload" />
-																
+								<input name="imgupload" id="up2" type="button" class="imgupload form-control btn btn-success" value="Upload" />								
 							</div>
 						</div>
 						
@@ -715,6 +681,9 @@ if ($_POST['submitbtn']=="Upload") {
 			</div>
 			<div id="dialog">
 				<iframe id="myIframe" src=""></iframe>
+			</div>
+			<div id="dialog1">
+				
 			</div>
 		</form>
 		
