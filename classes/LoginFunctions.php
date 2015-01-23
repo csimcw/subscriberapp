@@ -39,7 +39,7 @@ class LoginFunctions{
 		//$sha1pass = sha1($password);
 		$sha1pass = $password;
 		
-		$sqlqry = "SELECT fullname FROM admin where username='$username' and password='$sha1pass'";
+		$sqlqry = "SELECT fullname, role FROM admin where username='$username' and password='$sha1pass'";
 		
 		$msqry = mysqli_query($this->conn,$sqlqry);
 		

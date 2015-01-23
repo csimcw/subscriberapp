@@ -37,6 +37,7 @@ function resizeThumbnailImage($thumb_image_name, $image, $width, $height, $start
       	case "image/pjpeg":
 		case "image/jpeg":
 		case "image/jpg":
+		case "image/JPG":
 	  		imagejpeg($newImage,$thumb_image_name,100); 
 			break;
 		case "image/png":
@@ -67,6 +68,7 @@ if (isset($_POST["upload_thumbnail"])) {
 	$scale = $thumb_width/$w;
 	$cropped = resizeThumbnailImage($thumb_image_location, $large_image_location,$w,$h,$x1,$y1,$scale);
 	//header("location:".$_SERVER["PHP_SELF"]);
+	echo "<script>window.parant.close();</script>";
 	exit();
 }
 
@@ -151,6 +153,7 @@ $(document).ready(function () {
 			alert("Please Make a Selection First");
 			return false;
 		}else{
+			window.parent.close();
 			return true;
 		}
 	});
