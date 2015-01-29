@@ -71,7 +71,7 @@ if (isset($_POST["upload_thumbnail"])) {
 	$_SESSION['imgname'] = $filename;
 	echo "<script>
 		window.parent.closeIframe();
-		window.parent.alert('Image Uploaded successfully, \n File : $filename ');
+		window.parent.alert('Image Uploaded successfully, \n File : ".$filename." ');
 		window.parent.document.getElementById('up1').style.display='none';
 	</script>";	
 	exit();
