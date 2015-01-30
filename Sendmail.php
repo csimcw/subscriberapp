@@ -130,7 +130,7 @@ echo "Message has been sent";
 	<div class="row">		
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="text" name="to_email" id="to_email" class="form-control input-lg" placeholder="To Email Address" tabindex="55">
+						<input type="text" name="to_email" id="to_email" class="form-control input-lg" placeholder="To Email [for multiple emails, separate them with a comma(,)]" tabindex="55">
 					</div>
 				</div>
 			</div>

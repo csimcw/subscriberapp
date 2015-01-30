@@ -66,8 +66,16 @@ if(isset($_POST['search'])){
 		</div>
 	</nav>
     <div class="container">  
-	
-	
+		<h1>Finding difficulty in using the Application?</h1>
+		<p>Please go through the sections below to assist you understand the Application better.</p>
+		<h2>Menu's and their purpose</h2>
+		<ul>
+			<li>Registration - <p>This page allows the user to register members based on the form details provided.</p></li>
+			<li>Congregation members - <p>This page allows the user to basically search for the member details based on various categories such as general search, search members having birthdays on a specific period, members having anniversaries on specific period, carol lists.</p></li>
+			<li>Subscription - <p>This page allows the user to either enter the subscription details of each member or view the subscription details.</p></li>
+			<li>Email - <p>This page allows the user to send emails with rich text editor to add styles and images for the email content.</p></li>
+			<li>Member List Download Link - <a href="http://localhost:85/subscriberapp/ExcelGen/Examples/temptest.php">Members</a></li>
+		</ul>	
 	</div>
   </body>
  <?php
