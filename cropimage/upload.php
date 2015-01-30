@@ -1,5 +1,4 @@
 <?php
-
 $file_formats = array("jpg", "png", "gif", "bmp");
 
 $filepath = "upload_images/";
@@ -16,7 +15,7 @@ if ($_POST['submitbtn']=="Upload") {
  	$extension = substr($name, strrpos($name, '.')+1);
  	if (in_array($extension, $file_formats)) { // check it if it's a valid format or not
  		if ($size < (2048 * 1024)) { // check it if it's bigger than 2 mb or no
- 			$imagename = md5(uniqid() . time()) . "." . $name;
+ 			$imagename = date('Ymd_His') . "." . $name;
  			$tmp = $_FILES['imagefile']['tmp_name'];
  				if (move_uploaded_file($tmp, $filepath . $imagename)) {
 					echo $imagename;

@@ -65,10 +65,69 @@ if(isset($_POST['search'])){
 			</div>
 		</div>
 	</nav>
-    <div class="container">  
+    <div class="container">
+		<div class="row" style="margin-top:20px;margin-left:20px;">
+			<input type="radio" name="rd1" id="subsentry" checked>Subscription Entry</input>
+			<input type="radio" name="rd1" id="subsdetails">Subscription Details</input>
+		</div>
+		
 		<div class="row">
-        <div id="loginbox"  class="mainbox col-md-4 col-sm-4 " style="margin-top:20px;">                  
+        <div id="entrybox"  class="mainbox col-md-8 col-sm-8 " style="margin-top:20px;">                  
             <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title">Subscription Entry</div>                        
+                    </div>     
+
+                    <div style="padding-top:10px" class="panel-body" >
+
+                        <div style="display:block" id="login-info" class="alert alert-warning col-sm-12">Please enter the subscription details for the member and click on submit</div>
+                            
+                        <form id="entryform" class="form-horizontal" role="form" method="POST" action="subscription.php">
+                            <div class="row" style="padding-left:20px;">        
+                            <div style="margin-bottom: 25px;display:inline-block;" class="input-group">
+                                <input id="membname" type="text" class="form-control" name="Member name" value="" placeholder="Member Name">         
+                            </div>
+							<div style="margin-bottom: 25px;display:inline-block;" class="input-group">
+                                <input id="subscription" type="text" class="form-control" name="subscription" value="" placeholder="Subscription Amount(INR)">         
+                            </div>
+							</div>
+							<div class="row" style="padding-left:20px;">        
+								  <div style="margin-bottom: 25px;display:inline-block;" class="input-group">
+									<input id="subperiod" type="text" class="form-control" name="Member name" value="" placeholder="Subscription period">         
+								</div>
+								<div style="margin-bottom: 25px;display:inline-block;" class="input-group">
+									<select id="offeringtype" class="form-control" name="offeringtype">
+										<option value="">Select a Type</option>
+										<option value="sub">Subscription</option>
+										<option value="tg">Thanks Giving</option>
+										<option value="hf">Harvest Festival</option>
+										<option value="co">Carol Offering</option>
+										<option value="cf">Children fund</option>
+										<option value="wf">Womens fellowship</option>
+										<option value="yf">Youth fellowship</option>
+									</select>
+								</div>
+							</div>
+							                     
+                            <div style="margin-top:10px" class="form-group">
+                                    <!-- Button -->
+                                    <div class="col-sm-12 controls">
+                                      <input type="submit" name="submit" id="btn-login" class="btn btn-default"value="Submit" />
+									  <input type="reset" name="reset" id="btn-login" class="btn btn-default"value="Reset" />
+                                      <!--<a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>-->
+                                    </div>
+                            </div>                                 
+                        </form> 
+						
+						
+					</div> 					
+                </div>
+			</div>
+		</div>
+		<div id="detailsbox" style="display:none;"> 
+		<div class="row">
+			<div id="loginbox"  class="mainbox col-md-4 col-sm-4 " style="margin-top:20px;"> 				
+				<div class="panel panel-info" >
                     <div class="panel-heading">
                         <div class="panel-title">Subscription Details</div>                        
                     </div>     
@@ -98,9 +157,9 @@ if(isset($_POST['search'])){
 						
 					</div> 					
                 </div>
-				</div>
-				<div  class="mainbox col-md-6 col-sm-6"  style="margin-top:20px;">
-					<div class="panel panel-info" >
+			</div>
+			<div  class="mainbox col-md-4 col-sm-4"  style="margin-top:20px;">
+				<div class="panel panel-info" >
                     <div class="panel-heading">
                         <div class="panel-title">Subscription Details</div>                        
                     </div>     
@@ -131,8 +190,9 @@ if(isset($_POST['search'])){
 							</table>									
 					</div>
 				</div>
-				</div>
-        </div>         
+			</div>		
+        </div> 
+		</div>
     </div>
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 		
@@ -142,8 +202,19 @@ if(isset($_POST['search'])){
         <script type="text/javascript">
             // When the document is ready
             $(document).ready(function () {
-                
-                $('#datestart').datepicker({
+                $('#subsentry').click(function(){
+					$('#detailsbox').hide(1000);
+					$('#entrybox').show(1000);
+				});
+				
+				$('#subsdetails').click(function(){
+					$('#entrybox').hide(1000);
+					$('#detailsbox').show(1000);
+				});
+				
+				
+				
+                $('#subperiod').datepicker({
                     format: "yyyy-mm-dd"
                 });  
 				

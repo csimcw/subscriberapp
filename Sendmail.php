@@ -1,8 +1,18 @@
 <?php
-/*
 error_reporting(E_ALL);
 require 'PHPMailer\class.phpmailer.php';
 require 'PHPMailer\class.smtp.php';
+
+$from_email = "acsimcw@gmail.com";
+if(isset($_POST['from_email'])){
+echo "<pre>";
+print_r($_POST);
+exit;
+}
+if(isset($_POST['from_email'])){
+echo "xxxxxxxxxxxxxxxxxxxxxxxxform submitted";
+echo "from" . $_POST['from_email'];
+exit;
 
 $mail = new PHPMailer;
 	
@@ -23,8 +33,11 @@ $mail->WordWrap = 50; // set word wrap
 //$mail->AddAttachment("/tmp/image.jpg", "new.jpg"); // attachment
 $mail->IsHTML(true); // send as HTML
 $mail->Subject = "This is the subject";
-$mail->Body = "Hi,
-This is the HTML BODY "; //HTML Body
+//$mail->Body = "Hi,
+//This is the HTML BODY "; //HTML Body
+$mail->Body = $message;
+
+
 $mail->AltBody = "This is the body when user views in plain text format"; //Text Body
 if(!$mail->Send())
 {
@@ -33,7 +46,8 @@ echo "Mailer Error: " . $mail->ErrorInfo;
 else
 {
 echo "Message has been sent";
-}*/
+}
+}
 /*
 *	Mailer script ending...
 */
@@ -105,18 +119,18 @@ echo "Message has been sent";
 	</nav>
   <div class="container">
   <h1>Send Email</h1>
-  
+  <form method="POST" name="message" id="message" action="Sendmail.php">
   <div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="text" name="country" id="country" class="form-control input-lg" placeholder="From Email Address" tabindex="54">
+						<input type="text" name="from_email" id="from_email" class="form-control input-lg" value="<?php echo $from_email; ?>" placeholder="From Email Address" tabindex="54">
 					</div>
 				</div>
 			</div>
 	<div class="row">		
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="text" name="zipcode" id="zipcode" class="form-control input-lg" placeholder="To Email Address" tabindex="55">
+						<input type="text" name="to_email" id="to_email" class="form-control input-lg" placeholder="To Email Address" tabindex="55">
 					</div>
 				</div>
 			</div>
@@ -174,16 +188,20 @@ echo "Message has been sent";
       </div>
     </div>
     
-    <div id="editor" class="panel col-md-10">
-      Go ahead..
+	
+    <div id="editor" name="editor" class="panel col-md-10">
+      
     </div>
+	<input type="hidden" name="hidval" id="hidval" />
+	
   
   </div>
   <div class="row">
-				<div class="col-xs-12 col-md-12"><input type="submit" name="submitreg" value="Send" class="btn btn-primary btn-lg" tabindex="7">&nbsp;&nbsp;&nbsp;<input type="reset" value="Reset" class="btn btn-primary  btn-lg" tabindex="7"></div>
+				<div class="col-xs-12 col-md-12"><input type="button" name="submitreg" id="submitreg" value="Send" class="btn btn-primary btn-lg" tabindex="7">&nbsp;&nbsp;&nbsp;<input type="reset" value="Reset" class="btn btn-primary  btn-lg" tabindex="7"></div>
 				<!--<div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Sign In</a></div>-->
 			</div><br/><br/>
-
+	</form>
+	
 </div>
 </body>
 <link href="media/css/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -192,20 +210,20 @@ echo "Message has been sent";
 		<script src="media/js/jquery-ui.min.js"></script>
         <script src="media/js/bootstrap.js"></script>
 		
-		<script src="http://mindmup.github.io/bootstrap-wysiwyg/external/jquery.hotkeys.js"></script>
-		<script src="http://mindmup.github.io/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
+		<script src="media/js/jquery.hotkeys.js"></script>
+		<script src="media/js/bootstrap-wysiwyg.js"></script>
         <script type="text/javascript">
             // When the document is ready
             $(document).ready(function () {
-                
-
-  $('#editor').wysiwyg();
-  $('#editor').cleanHtml();
-
-});
-
-               
-			
+				$('#editor').wysiwyg();
+				$('#editor').cleanHtml();
+				$('#submitreg').click(function(){
+					alert("form submit");
+					$('#hidval').val($('#editor').html());
+					alert($('#hidval').val());
+					$('form').submit();					
+				});
+			});			
 
         </script>
 		<nav class="navbar navbar-default" style="text-align:center; background:palegoldenrod;"/>

@@ -4,9 +4,8 @@ session_start();
 if(!isset($_SESSION['fullname'])){
   header("Location:index.php");
 }else{
-  $usern = $_SESSION['fullname'];
+  $usern = $_SESSION['fullname'];  
 }
-//print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,16 +143,7 @@ if(!isset($_SESSION['fullname'])){
 								<label class="control-label col-xs-12 label label-primary" for="marriagedate1">Marriage Date</label>
 								<input type="text" name="marriagedate1" id="marriagedate1" class="form-control input-lg" placeholder="Marriage Date" tabindex="7" />
 							</div>
-						</div>
-						<div class="col-xs-1">
-							<div class="form-group">
-								<label class="control-label col-md-12 label label-primary" for="imgupload">Photo</label>
-								<input name="imgupload" id="up1" type="button" class="imgupload form-control btn btn-success" value="Upload" tabindex="8" />
-								<input type="hidden" name="imgpath1" id="imgpath1" value="" />
-																
-							</div>
-						</div>
-						
+						</div>						
 					</div>
 					<div class="row">
 						<div class="col-xs-2">
@@ -207,11 +197,11 @@ if(!isset($_SESSION['fullname'])){
 								<input type="text" name="marriagedate2" id="marriagedate2" class="form-control input-lg" placeholder="Marriage Date" tabindex="15" />
 							</div>
 						</div>
-						<div class="col-xs-1">
+						<!--<div class="col-xs-1">
 							<div class="form-group">								
 								<input name="imgupload" id="up2" type="button" class="imgupload form-control btn btn-success" value="Upload" tabindex="16" />								
 							</div>
-						</div>
+						</div>-->
 						
 					</div>
 					<div class="row">
@@ -266,11 +256,11 @@ if(!isset($_SESSION['fullname'])){
 								<input type="text" name="marriagedate3" id="marriagedate3" class="form-control input-lg" placeholder="Marriage Date" tabindex="23">
 							</div>
 						</div>
-						<div class="col-xs-1">
+						<!--<div class="col-xs-1">
 							<div class="form-group">								
 								<input name="imgupload" id="up3" type="button" class="imgupload form-control btn btn-success" value="Upload" tabindex="24" />	
 							</div>
-						</div>						
+						</div>-->
 					</div>
 					<div class="row">
 						<div class="col-xs-2">
@@ -320,13 +310,12 @@ if(!isset($_SESSION['fullname'])){
 								<input type="text" name="marriagedate4" id="marriagedate4" class="form-control input-lg" placeholder="Marriage Date" tabindex="31">
 							</div>
 						</div>
-						<div class="col-xs-1">
+						<!--<div class="col-xs-1">
 							<div class="form-group">								
 								<input name="imgupload" id="up4" type="button" class="imgupload form-control btn btn-success" value="Upload" tabindex="32"/>
 																
 							</div>
-						</div>
-						
+						</div>-->						
 					</div>
 					<div class="row">
 						<div class="col-xs-2">
@@ -380,11 +369,11 @@ if(!isset($_SESSION['fullname'])){
 								<input type="text" name="marriagedate5" id="marriagedate5" class="form-control input-lg" placeholder="Marriage Date" tabindex="39">
 							</div>
 						</div>
-						<div class="col-xs-1">
+						<!-- <div class="col-xs-1">
 							<div class="form-group">								
 								<input name="imgupload" id="up5" type="button" class="imgupload form-control btn btn-success" value="Upload" tabindex="40" />	
 							</div>
-						</div>
+						</div>-->
 						
 					</div>
 					<div class="row">
@@ -439,14 +428,26 @@ if(!isset($_SESSION['fullname'])){
 								<input type="text" name="marriagedate6" id="marriagedate6" class="form-control input-lg" placeholder="Date of Birth" tabindex="47">
 							</div>
 						</div>
-						<div class="col-xs-1">
+						<!-- <div class="col-xs-1">
 							<div class="form-group">								
 								<input name="imgupload" id="up6" type="button" class="imgupload form-control btn btn-success" value="Upload" tabindex="48"/>
 																
 							</div>
-						</div>
-						
-					</div>					
+						</div>-->						
+					</div>	
+					<div class="row">						
+						<div class="col-xs-4">
+							<div class="form-group">
+								<input name="imgupload" id="up1" type="button" class="imgupload form-control btn btn-success" value="Upload Family Photo" tabindex="8" />
+								<input type="hidden" name="imgpath1" id="imgpath1" value="" />									
+							</div>
+						</div>	
+						<div class="col-xs-4">
+							<div class="form-group">								
+								<div id="result" style="font-weight:bold;color: #8080ff;"></div>
+							</div>
+						</div>						
+					</div>
 				</div>
 			</div>
 			
@@ -695,13 +696,20 @@ if(!isset($_SESSION['fullname'])){
 				
 				$(".imgupload").click(function(){					
 					 $('#dialog').dialog('open');
+					 
 				});
             
             });
 			function closeIframe()
 			{
+				alert("hi");
+				
+				$.post( "imageresp.php", function( data ) {
+					alert(data);
+					  $( "#result" ).html( "<span style='color:red;text-decoration: underline;'>Uploaded Photo : </span>" + data );
+					});
 				$('#dialog').dialog('close');
-				return false;
+				return true;
 			}
 
         </script>

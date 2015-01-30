@@ -1,13 +1,10 @@
 <?php
 session_start();
 error_reporting (E_ALL ^ E_NOTICE);
-
 $upload_path = "upload_images/";				
-						
+					
 $thumb_width = "150";						
 $thumb_height = "150";						
-
-
 function resizeThumbnailImage($thumb_image_name, $image, $width, $height, $start_width, $start_height, $scale){
 	list($imagewidth, $imageheight, $imageType) = getimagesize($image);
 	$imageType = image_type_to_mime_type($imageType);
@@ -69,17 +66,12 @@ if (isset($_POST["upload_thumbnail"])) {
 	$cropped = resizeThumbnailImage($thumb_image_location, $large_image_location,$w,$h,$x1,$y1,$scale);
 	//header("location:".$_SERVER["PHP_SELF"]);
 	$_SESSION['imgname'] = $filename;
-	echo "<script>
-		window.parent.closeIframe();
-		window.parent.alert('Image Uploaded successfully, \n File : ".$filename." ');
-		window.parent.document.getElementById('up1').style.display='none';
-	</script>";	
-	exit();
+	echo "<script>window.parent.closeIframe()</script>";
+	echo "<script>window.parent.alert('".$filename."');</script>";
+	//echo "<script>window.parent.document.getElementById('up1').style.display='none';</script>";	
+	//exit();
 }
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -172,7 +164,7 @@ $(document).ready(function () {
 <!-- content -->
 <section>
 <div class="container">
-
+	<h1>Family Photo Upload screen</h1>
 	<div class="crop_box">
 <form class="uploadform" method="post" enctype="multipart/form-data" action="upload.php" name="photo">	
 	<div class="crop_set_upload">
